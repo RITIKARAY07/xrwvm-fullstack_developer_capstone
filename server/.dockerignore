@@ -1,0 +1,5 @@
+.git
+frontend/node_modules
+cookies.txt
+__pycache__
+*.pyc
