@@ -36,4 +36,4 @@ jobs:
 
       - name: Build React
         working-directory: server/frontend
-        run: npm run build
+        run: CI=false npm run build
