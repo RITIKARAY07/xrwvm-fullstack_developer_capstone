@@ -1,0 +1,39 @@
+name: Capstone CI/CD
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python dependencies
+        working-directory: server
+        run: pip install -r requirements.txt
+
+      - name: Check Django
+        working-directory: server
+        run: python manage.py check
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install React dependencies
+        working-directory: server/frontend
+        run: npm ci --legacy-peer-deps
+
+      - name: Build React
+        working-directory: server/frontend
+        run: npm run build
